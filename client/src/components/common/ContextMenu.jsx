@@ -1,11 +1,19 @@
 import React, { useEffect, useRef } from "react";
 
 function ContextMenu({options , coordinates , contextMenu , setContextMenu}) {
-const ContextMenuRef = useRef(null)
+
+// Using the reference for closing context menu on outside click
+  const ContextMenuRef = useRef(null)
+
+// handle click function on contextMenu items
 const handleClick = (e,callback) =>{
 e.stopPropagation();
 setContextMenu(false);
+callback();
 }
+
+
+// use for handleoutside click by default behaviour
 useEffect(()=>{
   const handleOutsideClick = (e) =>{
     if(e.target.id !== "context-opener" ){
@@ -33,7 +41,7 @@ useEffect(()=>{
       {
         options.map(({name , callback})=>(
 
-          <li className="py-2 px-2 cursor-pointer hover:bg-background-default-hover" key={name} onClick={(e)=>{handleClick(e,callback)}}>
+          <li className="py-2 px-2 cursor-pointer hover:bg-background-default-hover" key={name} onClick={(e)=>(handleClick(e,callback))}>
             <span className="text-white">{name}</span>
           </li>
         )

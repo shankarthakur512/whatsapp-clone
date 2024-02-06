@@ -12,7 +12,7 @@ function onboarding() {
   return (
     <div className="bg-panel-header-background h-screen w-screen flex flex-col items-center justify-center">
       <div className="flex items-center justify-center gap-2 text-white">
-      <Image src="/whatsapp.gif" alt="whatsapp" height={280} width={280}></Image>
+      <Image src="/whatsapp.gif" alt="whatsapp" height={280} width={280} />
       <span className="text-6xl">whatsApp</span>
      </div>
      <h2 className="text-2xl text-white mt-5">create your profile</h2>
