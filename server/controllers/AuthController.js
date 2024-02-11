@@ -17,5 +17,15 @@ if(!user){
     return res.status(200)
     .json(new ApiResponse(200 , user , "User found successfully"))
 }
-
+});
+export const onboardingUser = asyncHandler(async(req , res) =>{
+    const {email , name , image: profilePicture , about} = req.body;
+    if(!email || !name || !profilePicture){
+    return  res.send("Emails , Name , Image is required")
+    }
+    const prisma = getPrismaInstance();
+   await prisma.User.create({
+        data : {email , name , profilePicture , about}
+    })
+ return res.json(new ApiResponse(200 , null ,"User Registered Sucessfully"))
 })

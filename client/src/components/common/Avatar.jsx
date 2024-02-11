@@ -3,6 +3,8 @@ import Image from "next/image";
 import {FaCamera} from "react-icons/fa"
 import ContextMenu from "./ContextMenu";
 import PhotoPicker from "./PhotoPicker";
+import PhotoLibrary from "./PhotoLibrary";
+import CapturePhoto from "./CapturePhoto";
 
 function Avatar({type , image , setImage}) {
 
@@ -14,6 +16,8 @@ function Avatar({type , image , setImage}) {
     y:0
   })
   const[grabPhoto , setgrabPhoto] = useState(false);
+  const[isLibraryVisible , setisLibraryVisible ]  = useState(false);
+  const[showCapturePhoto , setShowCapturePhoto] = useState(false)
 //hooks 
 useEffect(()=>{
 if(grabPhoto){
@@ -38,6 +42,9 @@ if(grabPhoto){
     setIsContextMenuVisible(true);
   }
 
+
+
+  // In this function we are using File Reader functionaility
 const photoPickerChange = async(e)=>{
 const file = await e.target.files[0];
 const reader = new FileReader();
@@ -58,11 +65,15 @@ setImage(data.src)
   const contextMenuOptions=[
     {
     name:"Take Photo", 
-    callback: ()=>{}
+    callback: ()=>{
+      setShowCapturePhoto(true)
+    }
      } ,
      {
     name : "change from library",
-    callback : ()=>{}
+    callback : ()=>{
+    setisLibraryVisible(true)
+    }
      },
     {
     name : "Upload Photo",
@@ -145,6 +156,18 @@ setImage(data.src)
         onChange = {photoPickerChange}
         />
 
+      )
+    }
+    {
+      showCapturePhoto && <CapturePhoto 
+      setImage = {setImage}
+      setShowCaptureImage = {setShowCapturePhoto}
+      />
+    }
+    {
+
+      isLibraryVisible && (
+        <PhotoLibrary setisLibraryVisible={setisLibraryVisible} setImage={setImage} />
       )
     }
    

@@ -39,7 +39,21 @@ function login() {
             }
            })
           router.push("/onboarding");
+        }else{
+          dispatch({
+            type : reducerCases.SET_USER_INFO ,
+             userInfo : {
+              id : data.data.id,
+               name : data.data.name ,
+               email : email,
+               photoImage : data.data.profilePicture,
+               status : data.data.about
+             }
+            })
+
+            router.push("/")
         }
+       
       }
     } catch (error) {
       

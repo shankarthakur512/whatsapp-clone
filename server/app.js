@@ -16,6 +16,7 @@ app.use(express.json());
 import userRouter from "./routes/AuthRoutes.js"
 
 
+
 //routes declaration
 app.use("/api/v1/user", userRouter)
 
