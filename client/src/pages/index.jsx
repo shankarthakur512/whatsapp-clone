@@ -7,8 +7,8 @@ function index() {
   const router = useRouter();
   const [{userInfo}]= useStateProvider();
  /* useEffect(()=>{
-   if( !userInfo?.id ) router.push("/login");
-  },[userInfo]) ; */
+    if(!userInfo) router.push("/login");
+  },[]) ; */
   return <Main />;
   
 } 

@@ -29,3 +29,29 @@ export const onboardingUser = asyncHandler(async(req , res) =>{
     })
  return res.json(new ApiResponse(200 , null ,"User Registered Sucessfully"))
 })
+
+export const getAllUsers = asyncHandler(async (req , res) =>{
+    const prisma = getPrismaInstance();
+    const users = await prisma.User.findMany({
+        orderBy : {name : "asc"},
+        select : {
+            id : true,
+            email : true,
+            name : true,
+            profilePicture : true,
+            about : true,
+
+        },
+
+});
+const usersGroupedByInitialLetter = {};
+users.forEach((user)=> {
+  const initialletter = user.name.charAt(0).toUpperCase();
+  if(!usersGroupedByInitialLetter[initialletter]) {
+    usersGroupedByInitialLetter[initialletter] = [];
+  } 
+  usersGroupedByInitialLetter[initialletter].push(user)
+});
+return res.status(200).send({users : usersGroupedByInitialLetter})
+
+})

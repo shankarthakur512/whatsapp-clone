@@ -8,6 +8,7 @@ import axios from "axios";
 import { CHECK_USER } from "@/utils/ApiRoutes.js";
 import { useStateProvider } from "@/context/StateContext.jsx";
 import { reducerCases } from "@/context/constants.js";
+import Chat from "./Chat/Chat.jsx";
 
 
 function Main() {
@@ -15,16 +16,18 @@ function Main() {
   const[RedirectTologin , setRedirectTologin] = useState(false)
   const[{userInfo} , dispatch] =useStateProvider();
 useEffect(()=>{
-  if(RedirectTologin){
+ if(RedirectTologin){
     router.push("/login");
   }
 },[RedirectTologin,setRedirectTologin])
 onAuthStateChanged(firebaseAuth,async (currentUser) =>{
+  console.log(currentUser.email);
 if(!currentUser) setRedirectTologin(true);
 if(!userInfo && currentUser?.email){
 const {data} = await axios.post(CHECK_USER,{
 email : currentUser.email,
 })
+console.log(data)
 dispatch({
   type : reducerCases.SET_USER_INFO ,
    userInfo : {
@@ -42,7 +45,8 @@ dispatch({
   <>
 <div className="grid grid-cols-main h-screen w-screen max-h-screen max-w-full overflow-hidden">
   <ChatList />
-  <Empty />
+ {/* <Empty /> */}
+ <Chat />
 </div>
   </>);
 }

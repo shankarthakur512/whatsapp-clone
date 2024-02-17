@@ -51,7 +51,7 @@ function login() {
              }
             })
 
-            router.push("/")
+        router.push("/")
         }
        
       }
